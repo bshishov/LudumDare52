@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4452113565353352584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4452113565353352582}
+  - component: {fileID: 4452113565353352585}
+  m_Layer: 0
+  m_Name: Bamboo
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4452113565353352582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452113565353352584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4452113565353352585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452113565353352584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ce9429d0d640746945f487cc09f248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewSegmentStartsAfterTime: 4
+  HeightOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.12331289
+      outSlope: 0.12331289
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.033051804
+    - serializedVersion: 3
+      time: 19.995882
+      value: 1.0006492
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RadiusOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.048934937
+      value: 0.49926758
+      inSlope: 0.04863098
+      outSlope: 0.04863098
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.033523217
+    - serializedVersion: 3
+      time: 19.909096
+      value: 0.9996858
+      inSlope: 0.0038604268
+      outSlope: 0.0038604268
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.033496756
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MaxSubSegments: 1
+  MaxAngle: 5
+  MinRandomTimeScale: 0.5
+  MaxRandomTimeScale: 1.5
+  LeafScaleOverSegmentIndex:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 2.3707886
+      value: -0.0012817383
+      inSlope: 0.6105888
+      outSlope: 0.6105888
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4.003479
+      value: 0.9956207
+      inSlope: 0.6105888
+      outSlope: 0.6105888
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  LeafScaleOverSegmentLifetime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.022399902
+      value: 0
+      inSlope: -0.0014432127
+      outSlope: -0.0014432127
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.057648554
+    - serializedVersion: 3
+      time: 10.421588
+      value: 0.19045565
+      inSlope: 0.059518177
+      outSlope: 0.059518177
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20.057821
+      value: 0.9942547
+      inSlope: 0.022205789
+      outSlope: 0.022205789
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1166376
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  BambooGrowthSpeedOverLifetime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.99993896
+      inSlope: -1.0093994
+      outSlope: -1.0093994
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: -0.009460449
+      inSlope: -1.0093994
+      outSlope: -1.0093994
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  BambooSegmentOld: {fileID: -3157093380177568973, guid: 8a7b1eb0494074d42bd74ca81dcf065a, type: 3}
+  BambooSegmentYoung: {fileID: 3804755901621287728, guid: a93216d5bd5f61648a309d329dff9029, type: 3}
+  BambooLeaf: {fileID: 3193979269625385936, guid: 177ddcdf84bc171479f5d4d2afc8f552, type: 3}
