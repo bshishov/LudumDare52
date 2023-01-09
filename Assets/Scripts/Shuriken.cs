@@ -1,10 +1,9 @@
-using System;
 using TSUtils.Sounds;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler
+public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private float Impulse;
     [SerializeField] private Texture IdleTexture;
@@ -17,6 +16,8 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
     [SerializeField] private SoundAsset CollisionSound;
     [SerializeField] private SoundAsset OutOfBoundsSound;
     [SerializeField] private GameObject CollisionFx;
+    [SerializeField] private GameObject ChargeFx;
+    
     public ShurikenState State => _state;
 
     private Rigidbody _rigidBody;
@@ -26,6 +27,7 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
     private Vector3 _originalPosition;
     private Quaternion _originalVisualRotation;
     private Quaternion _originalRotation;
+    private GameObject _chargeFxInstance;
 
     private void Start()
     {
@@ -56,6 +58,30 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_state == ShurikenState.Idle)
+        {
+            if (ChargeFx != null)
+            {
+                if(_chargeFxInstance != null)
+                    Destroy(_chargeFxInstance);
+
+                var t = transform;
+                _chargeFxInstance = Instantiate(ChargeFx, t.position + new Vector3(0, 0.5f, 0), Quaternion.identity, t);
+            }
+        }
+    }
+    
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_state == ShurikenState.Idle)
+        {
+            if(_chargeFxInstance != null)
+                Destroy(_chargeFxInstance);
+        }
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_state == ShurikenState.Idle)
@@ -81,6 +107,9 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
 
     private void Throw(Vector3 direction)
     {
+        if(_chargeFxInstance != null)
+            Destroy(_chargeFxInstance);
+        
         _state = ShurikenState.Moving;
         VisualRenderer.material.mainTexture = SpinningTexture;
         direction = new Vector3(direction.x, 0, direction.z).normalized;

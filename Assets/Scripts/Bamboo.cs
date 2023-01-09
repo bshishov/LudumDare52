@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TSUtils.Sounds;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Bamboo : MonoBehaviour
 {
@@ -180,5 +182,12 @@ public class Bamboo : MonoBehaviour
         }
         _segments.Clear();
         Start();
+    }
+
+    private void OnDrawGizmos()
+    {
+        var position = transform.position;
+        var height = 4f; 
+        Gizmos.DrawCube(position + new Vector3(0, height * 0.5f, 0), new Vector3(0.1f, height, 0.1f));
     }
 }

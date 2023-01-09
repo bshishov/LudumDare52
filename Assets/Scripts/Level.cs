@@ -1,13 +1,19 @@
 using System.Linq;
+using TSUtils.Sounds;
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    [SerializeField] private LevelSet LevelSet;
+    [SerializeField] private SoundAsset CompleteSound;
+    
     private Bamboo[] _bambooInstances;
     private Shuriken[] _shurikenInstances;
+    private bool _levelCompleted;
 
     private void Start()
     {
+        _levelCompleted = false;
         _bambooInstances = FindObjectsOfType<Bamboo>();
         _shurikenInstances = FindObjectsOfType<Shuriken>();
     }
@@ -17,16 +23,21 @@ public class Level : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             ResetAll();
+            _levelCompleted = false;
         }
 
-        if (AllShurikenOutOfBounds())
+        if (!_levelCompleted)
         {
-            ResetAll();
-        }
-
-        if (AllBambooIsCut())
-        {
-            ResetAll();
+            if (AllShurikenOutOfBounds())
+            {
+                ResetAll();
+            }
+            if (AllBambooIsCut())
+            {
+                _levelCompleted = true;
+                SoundManager.Instance.Play(CompleteSound);
+                LevelSet.LoadNextLevel();
+            }
         }
     }
 
@@ -49,6 +60,7 @@ public class Level : MonoBehaviour
 
     private void ResetAll()
     {
+        _levelCompleted = false;
         foreach (var bamboo in _bambooInstances)
         {
             bamboo.ResetToStart();
