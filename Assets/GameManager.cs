@@ -1,19 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject BambooPrefab;
-    
-    void Start()
+    public Ground Ground;
+    public float CutRadius;
+
+    private Collider[] _overlaps = new Collider[10];
+
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        var currentPositionOnTheGround = GetCurrentPositionOnTheGround();
         
+        if (Input.GetMouseButton(0))
+        {
+            Instantiate(BambooPrefab, currentPositionOnTheGround, Quaternion.identity);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            CutBambooAtPosition(currentPositionOnTheGround);
+        }
+    }
+
+    private Vector3 GetCurrentPositionOnTheGround()
+    {
+        return Ground.LastPointerWorldPosition;
+    }
+
+    private void CutBambooAtPosition(Vector3 currentPositionOnTheGround)
+    {
+        var nOverlaps = Physics.OverlapSphereNonAlloc(currentPositionOnTheGround, CutRadius, _overlaps);
+        for (var i = 0; i < nOverlaps; i++)
+        {
+            var bamboo = _overlaps[i].GetComponent<Bamboo>();
+            if (bamboo != null)
+            {
+                bamboo.CutAt(1);
+            }
+        }
     }
 }

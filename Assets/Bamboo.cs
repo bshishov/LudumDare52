@@ -14,6 +14,7 @@ public class Bamboo : MonoBehaviour
     public AnimationCurve LeafScaleOverSegmentIndex;
     public AnimationCurve LeafScaleOverSegmentLifetime;
     public AnimationCurve BambooGrowthSpeedOverLifetime;
+    public int MaxSegments;
 
     [Header("Prefabs")] 
     public GameObject BambooSegmentOld;
@@ -75,7 +76,7 @@ public class Bamboo : MonoBehaviour
             pivotPosition = SegmentEndPosition(segment.Parent);
         segment.Transform.localPosition = pivotPosition;
 
-        var lifetime = (Time.time - segment.Started) * segment.TimeScale; // * bambooGrowthSpeed;
+        var lifetime = (Time.time - segment.Started) * segment.TimeScale; // * bambooGrowthSpeed; ???
 
         // Size growth
         var segmentHeight = HeightOverTime.Evaluate(lifetime);
@@ -88,7 +89,7 @@ public class Bamboo : MonoBehaviour
         segment.LeafTransform.localScale = new Vector3(leafSize, leafSize, leafSize);
 
         // Spawn segment if needed
-        if (segment.NSubSegments < MaxSubSegments && lifetime > NewSegmentStartsAfterTime)
+        if (segment.NSubSegments < MaxSubSegments && lifetime > NewSegmentStartsAfterTime && _segments.Count < MaxSegments)
         {
             if (segment.NSubSegments == 0)
             {
@@ -113,5 +114,20 @@ public class Bamboo : MonoBehaviour
     {
         var topPosition = segment.Transform.TransformPoint(Vector3.up);
         return transform.InverseTransformPoint(topPosition);
+    }
+
+    public void CutAt(int segmentIndex)
+    {
+        for (var i = _segments.Count - 1; i >= segmentIndex; i--)
+        {
+            var segment = _segments[i];
+            segment.Transform.SetParent(null);
+            var segmentObject = segment.Transform.gameObject;
+            segmentObject.AddComponent<CapsuleCollider>();
+            segmentObject.AddComponent<Rigidbody>();
+            
+            //Destroy(segment.Transform.gameObject);
+            _segments.RemoveAt(i);
+        }
     }
 }
