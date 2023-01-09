@@ -15,6 +15,9 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
     [SerializeField] private TrailRenderer TrailRenderer;
     [SerializeField] private SoundAsset ThrowSound;
     [SerializeField] private SoundAsset CollisionSound;
+    [SerializeField] private SoundAsset OutOfBoundsSound;
+    [SerializeField] private GameObject CollisionFx;
+    public ShurikenState State => _state;
 
     private Rigidbody _rigidBody;
     private ShurikenState _state;
@@ -30,11 +33,11 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
         _rigidBody = GetComponent<Rigidbody>();
         _state = ShurikenState.Idle;
         VisualRenderer.material.mainTexture = IdleTexture;
+        
         var t = transform; 
         _originalPosition = t.position;
         _originalRotation = t.rotation;
         _originalVisualRotation = VisualTransform.rotation;
-        
     }
 
     private void Update()
@@ -42,12 +45,14 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
         if (_state == ShurikenState.Moving)
         {
             VisualTransform.Rotate(Vector3.forward, VisualRotationSpeed * Time.deltaTime);
-        }
-
-        var distanceFromZero = Vector3.Distance(transform.position, Vector3.zero);
-        if (distanceFromZero > 20)
-        {
-            ResetToStart();
+            
+            var distanceFromZero = Vector3.Distance(transform.position, Vector3.zero);
+            if (distanceFromZero > 15)
+            {
+                SoundManager.Instance.Play(OutOfBoundsSound);
+                Stop();
+                _state = ShurikenState.OutOfBounds;
+            }
         }
     }
 
@@ -99,8 +104,7 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
         t.position = _originalPosition;
         t.rotation = _originalRotation;
         
-        _rigidBody.velocity = Vector3.zero;
-        _rigidBody.angularVelocity = Vector3.zero;
+        Stop();
         VisualTransform.rotation = _originalVisualRotation;
         TrailRenderer.Clear();
     }
@@ -114,8 +118,19 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
         }
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(Collision collision)
     {
         SoundManager.Instance.Play(CollisionSound);
+        if (CollisionFx != null)
+        {
+            var contact = collision.GetContact(0);
+            Instantiate(CollisionFx, contact.point, Quaternion.LookRotation(contact.normal));
+        }
+    }
+
+    private void Stop()
+    {
+        _rigidBody.velocity = Vector3.zero;
+        _rigidBody.angularVelocity = Vector3.zero;
     }
 }

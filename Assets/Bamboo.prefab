@@ -176,6 +176,7 @@ MonoBehaviour:
   BambooLeaf: {fileID: 3193979269625385936, guid: 177ddcdf84bc171479f5d4d2afc8f552, type: 3}
   CutSound: {fileID: 11400000, guid: 131788606c582af48abe57d05f58dcaa, type: 2}
   HitSound: {fileID: 11400000, guid: 4d4d7f72be8f49947a218dccd24c6b47, type: 2}
+  CutFx: {fileID: 1372241149341006, guid: 73dd52c851c98bc469685251a9046eb5, type: 3}
 --- !u!135 &-7501550492398831200
 SphereCollider:
   m_ObjectHideFlags: 0

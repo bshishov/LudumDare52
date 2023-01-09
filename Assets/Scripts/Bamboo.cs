@@ -23,15 +23,18 @@ public class Bamboo : MonoBehaviour
     public GameObject BambooSegmentYoung;
     public GameObject BambooLeaf;
 
-    [Header("Sounds")] 
+    [Header("Effects")] 
     public SoundAsset CutSound;
     public SoundAsset HitSound;
+    public GameObject CutFx;
 
     private readonly List<BambooSegment> _segments = new (20);
     private float _bambooCreated;
+    public bool IsCut { get; private set; }
 
     private void Start()
     {
+        IsCut = false;
         _bambooCreated = Time.time;
         AddNewSegmentFromParent(0, null);   
     }
@@ -126,7 +129,14 @@ public class Bamboo : MonoBehaviour
     {
         if(segmentIndex > _segments.Count - 1)
             return;
-        
+
+        IsCut = true;
+
+        if (CutFx != null)
+        {
+            Instantiate(CutFx, contactPoint, Quaternion.LookRotation(contactVelocity));    
+        }
+
         segmentIndex = Mathf.Min(_segments.Count - 1, segmentIndex);
         segmentIndex = Mathf.Max(0, segmentIndex);
         

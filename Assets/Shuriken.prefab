@@ -253,6 +253,8 @@ MonoBehaviour:
   TrailRenderer: {fileID: 7476835361628651205}
   ThrowSound: {fileID: 11400000, guid: 949a33c3379be514ea585e4dca7fc5ee, type: 2}
   CollisionSound: {fileID: 11400000, guid: 30fe8e693a9df7e4fb10c47ddba288e7, type: 2}
+  OutOfBoundsSound: {fileID: 11400000, guid: 5346d255365672f4b93f5410795a3f5d, type: 2}
+  CollisionFx: {fileID: 102696, guid: 185035e4680c4b344b62bf5ace4674b8, type: 3}
 --- !u!96 &7476835361628651205
 TrailRenderer:
   serializedVersion: 2
