@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TSUtils.Sounds;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bamboo : MonoBehaviour
@@ -20,6 +22,10 @@ public class Bamboo : MonoBehaviour
     public GameObject BambooSegmentOld;
     public GameObject BambooSegmentYoung;
     public GameObject BambooLeaf;
+
+    [Header("Sounds")] 
+    public SoundAsset CutSound;
+    public SoundAsset HitSound;
 
     private readonly List<BambooSegment> _segments = new (20);
     private float _bambooCreated;
@@ -116,18 +122,53 @@ public class Bamboo : MonoBehaviour
         return transform.InverseTransformPoint(topPosition);
     }
 
-    public void CutAt(int segmentIndex)
+    public void CutAt(int segmentIndex, Vector3 contactVelocity, Vector3 contactPoint)
     {
+        if(segmentIndex > _segments.Count - 1)
+            return;
+        
+        segmentIndex = Mathf.Min(_segments.Count - 1, segmentIndex);
+        segmentIndex = Mathf.Max(0, segmentIndex);
+        
+        var cutTrunk = new GameObject
+        {
+            transform =
+            {
+                position = _segments[segmentIndex].Transform.position,
+                rotation = _segments[segmentIndex].Transform.rotation
+            }
+        };
+
         for (var i = _segments.Count - 1; i >= segmentIndex; i--)
         {
             var segment = _segments[i];
-            segment.Transform.SetParent(null);
-            var segmentObject = segment.Transform.gameObject;
-            segmentObject.AddComponent<CapsuleCollider>();
-            segmentObject.AddComponent<Rigidbody>();
-            
-            //Destroy(segment.Transform.gameObject);
+            segment.Transform.SetParent(cutTrunk.transform);
+            segment.Transform.AddComponent<CapsuleCollider>();
+            //var segmentObject = segment.Transform.gameObject;
+            //segmentObject.AddComponent<CapsuleCollider>();
+            //segmentObject.AddComponent<Rigidbody>();
+            //Destroy(segment.Transform.gameObject, 2);
             _segments.RemoveAt(i);
         }
+
+        //cutTrunk.AddComponent<CapsuleCollider>();
+        var rb = cutTrunk.AddComponent<Rigidbody>();
+        var comp = cutTrunk.AddComponent<BreakIntoPeacesAfterHit>();
+        comp.Sound = HitSound;
+        rb.mass = 100;
+        rb.AddForceAtPosition(contactVelocity, contactPoint, ForceMode.Impulse);
+        Destroy(cutTrunk, 5);
+
+        SoundManager.Instance.Play(CutSound);
+    }
+
+    public void ResetToStart()
+    {
+        foreach (var segment in _segments)
+        {
+            Destroy(segment.Transform.gameObject);
+        }
+        _segments.Clear();
+        Start();
     }
 }

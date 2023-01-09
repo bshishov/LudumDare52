@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4452113565353352582}
   - component: {fileID: 4452113565353352585}
   - component: {fileID: -7501550492398831200}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bamboo
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ce9429d0d640746945f487cc09f248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewSegmentStartsAfterTime: 4
+  NewSegmentStartsAfterTime: 0.25
   HeightOverTime:
     serializedVersion: 2
     m_Curve:
@@ -59,8 +59,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.033051804
     - serializedVersion: 3
-      time: 19.995882
-      value: 1.0006492
+      time: 0.49312317
+      value: 1.0003862
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -83,8 +83,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.033523217
     - serializedVersion: 3
-      time: 19.909096
-      value: 0.9996858
+      time: 0.956337
+      value: 0.9005571
       inSlope: 0.0038604268
       outSlope: 0.0038604268
       tangentMode: 0
@@ -102,19 +102,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 2.3707886
-      value: -0.0012817383
-      inSlope: 0.6105888
-      outSlope: 0.6105888
+      time: -0.0015258789
+      value: 0.0006713867
+      inSlope: 0.9959556
+      outSlope: 0.9959556
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 4.003479
-      value: 0.9956207
-      inSlope: 0.6105888
-      outSlope: 0.6105888
+      time: 0.99920654
+      value: 0.9973564
+      inSlope: 0.9959556
+      outSlope: 0.9959556
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -126,31 +126,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.022399902
-      value: 0
-      inSlope: -0.0014432127
-      outSlope: -0.0014432127
-      tangentMode: 0
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.057648554
+      outWeight: 0
     - serializedVersion: 3
-      time: 10.421588
-      value: 0.19045565
-      inSlope: 0.059518177
-      outSlope: 0.059518177
-      tangentMode: 0
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 20.057821
-      value: 0.9942547
-      inSlope: 0.022205789
-      outSlope: 0.022205789
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.1166376
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -179,10 +170,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxSegments: 10
+  MaxSegments: 4
   BambooSegmentOld: {fileID: -3157093380177568973, guid: 8a7b1eb0494074d42bd74ca81dcf065a, type: 3}
   BambooSegmentYoung: {fileID: 3804755901621287728, guid: a93216d5bd5f61648a309d329dff9029, type: 3}
   BambooLeaf: {fileID: 3193979269625385936, guid: 177ddcdf84bc171479f5d4d2afc8f552, type: 3}
+  CutSound: {fileID: 11400000, guid: 131788606c582af48abe57d05f58dcaa, type: 2}
+  HitSound: {fileID: 11400000, guid: 4d4d7f72be8f49947a218dccd24c6b47, type: 2}
 --- !u!135 &-7501550492398831200
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -191,7 +184,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4452113565353352584}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2

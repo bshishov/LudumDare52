@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public Ground Ground;
     public float CutRadius;
 
-    private Collider[] _overlaps = new Collider[10];
+    private readonly Collider[] _overlaps = new Collider[10];
 
     private void Start()
     {
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             var bamboo = _overlaps[i].GetComponent<Bamboo>();
             if (bamboo != null)
             {
-                bamboo.CutAt(1);
+                bamboo.CutAt(1, Vector3.zero, Vector3.zero);
             }
         }
     }
