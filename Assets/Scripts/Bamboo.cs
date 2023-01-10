@@ -168,7 +168,7 @@ public class Bamboo : MonoBehaviour
         var comp = cutTrunk.AddComponent<BreakIntoPeacesAfterHit>();
         comp.Sound = HitSound;
         rb.mass = 100;
-        rb.AddForceAtPosition(contactVelocity, contactPoint, ForceMode.Impulse);
+        //rb.AddForceAtPosition(contactVelocity, contactPoint, ForceMode.Impulse);
         Destroy(cutTrunk, 5);
 
         SoundManager.Instance.Play(CutSound);

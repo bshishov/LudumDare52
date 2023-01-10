@@ -107,9 +107,12 @@ public class Shuriken : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler,
 
     private void Throw(Vector3 direction)
     {
+        if (direction.magnitude < .5f)
+            return;
+        
         if(_chargeFxInstance != null)
             Destroy(_chargeFxInstance);
-        
+
         _state = ShurikenState.Moving;
         VisualRenderer.material.mainTexture = SpinningTexture;
         direction = new Vector3(direction.x, 0, direction.z).normalized;
